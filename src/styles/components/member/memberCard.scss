@@ -1,0 +1,116 @@
+@use '../../core/breakpoint.scss';
+@use '../../core/typography.scss';
+@use '../../core/color.scss';
+@use '../../core/spacing.scss';
+@use '../card.scss';
+
+// Member Card
+// ===========
+// 
+// NOTE: If this were part of a component library, classes would likely be used  
+// over Sass @mixins to keep things modular and reduce duplication. Since this is
+// a single component, I've opted to keep things simple and apply styles directly
+// to the relevant elements.
+// 
+// Notes:
+// [1] In a library, typography and colour would be applied using utility classes. 
+// [2] MemberCard could be broken into a general Card abstraction and a  
+//     MemberSummary component
+// 
+// Markup
+// ------
+// 
+// .memberCard
+//   img.memberCard__image.memberImage
+//   .memberCard__main
+//     h[n].memberCard__name
+//       {text}
+//     .memberCard__party
+//       {text}
+//     .memberCard__constituency
+//       {text}
+//   .memberCard__status
+//     {html}
+// 
+// Schematic
+// ---------
+// 
+//                                                   ┌[memberCard]┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┐
+//                                                   ┊         ↕20px                ┊
+//                                                   ┊      ┌[image]┈┈┐             ┊
+//                                                   ┊      ┊    ⇡    ┊             ┊
+//                                                   ┊⇠20px⇢┊⇠ 100px ⇢┊             ┊
+//                                                   ┊      ┊    ⇣    ┊             ┊
+// ┌[memberCard]┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┐  ┊      └┈┈┈┈┈┈┈┈┈┘             ┊
+// ┊         ↕15px               ↕15px            ┊  ┊         ↕20px                ┊
+// ┊      ┌[image]┈┐      ┌[main]┈┈┈┈┈┈┈┈┈┈┐      ┊  ┊      ┌[main]┈┈┈┈┈┈┈┈┈┈┐      ┊
+// ┊      ┊    ⇡   ┊      ╞═[party]════════╡      ┊  ┊      ╞═[party]════════╡      ┊
+// ┊⇠15px⇢┊⇠ 60px ⇢┊⇠20px⇢┊      ↕5px      ┊      ┊  ┊      ┊      ↕5px      ┊      ┊
+// ┊      ┊    ⇣   ┊      ╞═[name]═════════╡⇠15px⇢┊  ┊⇠20px⇢╞═[name]═════════╡⇠20px⇢┊
+// ┊      └┈┈┈┈┈┈┈┈┘      ┊      ↕15px     ┊      ┊  ┊      ┊      ↕20px     ┊      ┊
+// ┊                      ╞═[constituency]═╡      ┊  ┊      ╞═[constituency]═╡      ┊
+// ┊                      └┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┘      ┊  ┊      └┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┘      ┊
+// ┊                             ↕20px            ┊  ┊            ↕20px             ┊
+// ┊                      ┌[status]┈┈┈┈┈┈┈┈┐      ┊  ┊      ┌[status]┈┈┈┈┈┈┈┈┐      ┊
+// ┊                      ╞═[notice]═══════╡⇠15px⇢┊  ┊⇠20px⇢╞═[notice]═══════╡⇠20px⇢┊
+// ┊                      └┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┘      ┊  ┊      └┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┘      ┊
+// ┊                             ↕10px            ┊  ┊            ↕15px             ┊
+// └┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┘  └┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┘
+//                  Small viewport                              Large viewport                                              
+
+.memberCard {
+  display: grid;
+  gap: spacing.$gutter;
+  @include card.base;                      // [see 2]
+
+  // For small viewports create a two column grid and place all elements except 
+  // the image into column 2. The image will default to column 1.
+  @include breakpoint.to(lg) {
+    grid-template-columns: 60px 1fr;
+    & > :not(.memberCard__image) {
+      grid-column: 2;
+    }
+  }
+
+  // Ensure the member image fills the available space and never extends beyond
+  // 100px. For small viewports this will result in a fixed 60px wide image 
+  // because of the grid.
+  .memberImage {
+    width: 100%;
+    max-width: 100px;
+  }
+}
+
+.memberCard__main {
+  display: flex;
+  flex-direction: column;
+  color: color.$grey_2;
+}
+
+.memberCard__name {
+  color: color.$brand;                    // [see 1]
+  margin-top: spacing.$unit;
+  margin-bottom: spacing.$unit * 3;
+  font-weight: bold;                      // [see 1]
+  @include typography.primary;            // [see 1]
+  @include breakpoint.from(lg) {
+    margin-bottom: spacing.$gutter;
+  }
+}
+
+// The Member Name element is first in the DOM structure but the design requires
+// Party to appear first, so switch the order.
+.memberCard__party {
+  order: -1;
+  @include typography.secondary;          // [see 1]
+}
+
+.memberCard__constituency {
+  @include typography.tertiary;           // [see 1]
+}
+
+// Hide the status element if it's empty to prevent it contributing to the grid
+// layout. This will collapse any grid gaps around it.
+.memberCard__status:empty {
+  display: none;
+}

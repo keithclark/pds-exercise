@@ -1,0 +1,29 @@
+@use "sass:map";
+@use '../core/breakpoint.scss';
+
+html {
+  font-family: Verdana, Arial, sans-serif;
+}
+
+@mixin primary {
+  font-size: 26px;
+  line-height: 1.25rem;
+
+   @include breakpoint.from(lg) {
+    font-size: 30px;
+  }
+}
+
+@mixin secondary {
+  font-size: 20px;
+  line-height: 1.35rem;
+
+  @include breakpoint.from(lg) {
+    font-size: 22px;
+  }
+}
+
+@mixin tertiary {
+  font-size: 18px;
+  line-height: 1.5rem;
+}

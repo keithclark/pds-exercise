@@ -1,0 +1,28 @@
+@use "sass:map";
+
+$breakpoints: (
+  "sm": 0,
+  "lg": 501px
+);
+
+// Applies styles when the viewport width is smaller than the named breakpoint.
+@mixin to($name) {
+  @media (max-width: (map.get($breakpoints, $name)-1px)) {
+    @content;
+  }
+}
+
+// Applies styles when the viewport width is greater than, or equal to the named 
+// breakpoint.
+@mixin from($name) {
+  @media (min-width: (map.get($breakpoints, $name))) {
+    @content;
+  }
+}
+
+// Applies styles when the viewport width is between two named breakpoints.
+@mixin between($start, $end) {
+  @media ((min-width: map.get($breakpoints, $start)) and (max-width:( map.get($breakpoints, $end)-1px))) {
+    @content;
+  }
+}

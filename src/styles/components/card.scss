@@ -1,0 +1,29 @@
+@use "../core/breakpoint.scss";
+@use "../core/color.scss";
+@use "../core/typography.scss";
+@use '../core/spacing.scss';
+
+
+// Schematic
+// ---------                       
+//   ┍[card]━━━━━━━━━━━━━━━━━┑        ┎[card]┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┐ 
+//   ┊         ↕15px         ┊        ┃         ↕20px         ┊ 
+//   ┊⇠15px⇢[ content ]⇠15px⇢┊        ┃⇠20px⇢[ content ]⇠20px⇢┊
+//   ┊         ↕10px         ┊        ┃         ↕15px         ┊ 
+//   └┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┘        ┖┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┘ 
+//         Small viewport                   Large viewport                                               
+
+@mixin base {
+  box-sizing: border-box;
+  padding: spacing.$unit * 3 spacing.$unit * 3 spacing.$unit * 2;
+  background-color: color.$background;
+  overflow: hidden;
+  border: 0 solid color.$brand;
+  border-top-width: spacing.$unit;
+
+  @include breakpoint.from(lg) {
+    padding: spacing.$unit * 4 spacing.$unit * 4 spacing.$unit * 3;
+    border-top-width: 0;
+    border-left-width: spacing.$unit;
+  }
+}

@@ -1,0 +1,39 @@
+@use '../../core/breakpoint.scss';
+
+// Member Image
+// ============
+// 
+// A component for rendering a member image. The image will be circular and have
+// a border which can be coloured to match the members party.
+// 
+// 
+// Custom Properties
+// -----------------
+// {color}  --colorParty  The colour of the image outline
+// 
+// 
+// Markup
+// ------
+//   img.memberImage
+// 
+// 
+// Schematic
+// ---------
+//   ┌[image]┐             
+//   ┊   ⇡   ┊             
+//   ┊⇠ 1/1 ⇢┊             
+//   ┊   ⇣   ┊             
+//   └┈┈┈┈┈┈┈┘ 
+
+.memberImage {
+  max-width: 100%;
+  display: block;
+  box-sizing: border-box;
+  border: 3px solid var(--colorParty);
+  aspect-ratio: 1;
+  border-radius: 50% / 50%;
+
+  @include breakpoint.from(lg) {
+    border-width: 5px;
+  }
+}

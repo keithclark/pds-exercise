@@ -1,0 +1,31 @@
+@use "./core/color.scss";
+@use "./core/breakpoint.scss";
+
+@use "./components/member/memberImage.scss";
+@use "./components/member/memberCard.scss";
+@use "./components/notice.scss";
+
+html {
+  margin: 0;
+  padding: 0;
+
+  // To ensure card stands out set background to "grey 1"
+  background-color: color.$grey_1;
+
+  // for the small breakpoint, 30px top and 15px left / right
+  padding: 30px 15px;
+
+  // for the large breakpoint, just 30px top padding. Reset inline
+  @include breakpoint.from(lg) {
+    padding-inline: initial;
+  }
+}
+
+// For the large breakpoint, the card should have a fixed width of 450px and
+// be placed in the middle of the page horizontally
+.memberCard {
+  @include breakpoint.from(lg) {
+    width: 450px;
+    margin: auto;
+  }
+}

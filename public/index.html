@@ -5,11 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Parliament UK Frontend Exercise</title>
-
+  <link rel="stylesheet" href="./bundle.css">
   <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
-<main></main>
+<main>
+  <!-- this could also be a <template> -->
+  <div class="memberCard" id="memberElem">
+    <img class="memberCard__image memberImage" alt="">
+    <div class="memberCard__main">
+      <h2 class="memberCard__name"></h2> <!-- this could be any relevant heading / elem -->
+      <div class="memberCard__party"></div>
+      <div class="memberCard__constituency"></div>
+    </div>
+    <div class="memberCard__status"></div>
+  </div>
+</main>
 <script src="./bundle.js"></script>
 </body>
 </html>
