@@ -81,6 +81,9 @@
   }
 }
 
+// The following elements could be nested in the `.memberCard` ruleset using 
+// `&__{name} {}`. I prefer to use the full class name because classes remain 
+// searchable from within my IDE.
 .memberCard__main {
   display: flex;
   flex-direction: column;
