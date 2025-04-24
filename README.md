@@ -10,6 +10,8 @@ This repository contains my solution to the [PDS Frontend Developer Exercise](TA
 
 * For the TypeScript part, I couldn't find existing type definitions for the public API so created them for the members endpoint. The structure was derived from the response payload.
 
+* The method for populating a member card is included in `index.ts` and the markup is included in `index.html`. If the application was to grow in complexity, these would move into component specific TypeScript files along with additional methods to create and manage component instances.
+
 ## Notes / Observations
 
 * `npm install` failed because the Node modules in "package-lock.json" are resolving to https://npm.parliament.uk, which isn't reachable from my machine. I had delete "package-lock.json" for `npm install` to work. This means my solution may use different dependency versions to those in the original exercise.
